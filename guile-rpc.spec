@@ -2,17 +2,21 @@ Summary:	Guile-RPC - Scheme implementation of XDR and ONC RPC
 Summary(pl.UTF-8):	Guile-RPC - implementacja XDR i ONC RPC w Scheme
 Name:		guile-rpc
 Version:	0.4
-Release:	1
+Release:	2
 License:	LGPL v3+
 Group:		Libraries
 Source0:	http://ftp.gnu.org/gnu/guile-rpc/%{name}-%{version}.tar.gz
 # Source0-md5:	457b6ad093d921fe5fedd25694518527
 Patch0:		%{name}-info.patch
 URL:		http://www.gnu.org/software/guile-rpc/
+BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	guile-devel >= 5:2.0
 BuildRequires:	texinfo
 Requires:	guile >= 5:2.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		_noautostrip	.*.go
 
 %description
 GNU Guile-RPC provides a pure Scheme implementation of XDR and ONC RPC
@@ -28,6 +32,9 @@ i nowszych.
 %patch0 -p1
 
 %build
+%{__aclocal}
+%{__autoconf}
+%{__automake}
 %configure
 
 %{__make}
@@ -53,6 +60,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/grpc-compile
 %attr(755,root,root) %{_bindir}/grpc-nfs-export
 %attr(755,root,root) %{_bindir}/grpc-rpcinfo
-%{_datadir}/guile/site/2.0/rpc
+%{_datadir}/guile/site/2.2/rpc
 %{_datadir}/guile-rpc
 %{_infodir}/guile-rpc.info*
